@@ -13,8 +13,14 @@
 
 ```
 dicts/<code>/   各辞書（本文txt＋書誌header.xml＋関連データファイル、無加工）
-catalog.csv     全30辞書の書誌・権利判定根拠
+lookup/<code>.tsv  検索用テーブル（機械生成、v1.1.0で追加）
+scripts/generate_lookup.py  lookup層の生成スクリプト
+catalog.csv     全30辞書の書誌・権利判定根拠・エントリ数
 ```
+
+## lookup層（検索用テーブル）
+
+**lookup/ は dicts/ からの機械生成物である**（生成規則は `scripts/generate_lookup.py` を参照。編集判断を含まない）。各辞書の全エントリ（総1,302,840項目）を1行1見出し語のタブ区切りに展開し、列は headword_iast（SLP1→IASTの機械変換済み見出し語）／headword_slp1／entry_id／page／body（語義本文、原マークアップ保持）である。IAST表記での直接検索と表計算ソフトでのフィルタが可能になる。dicts/ と lookup/ は必ず同一の底本コミットから生成される（catalog.csvのsource_commit列参照）。
 
 各辞書フォルダはcsl-origのv02/<code>/直下ファイルをそのまま収録した（作業用prep/サブディレクトリのみ除外）。本文は一切改変していない。
 
